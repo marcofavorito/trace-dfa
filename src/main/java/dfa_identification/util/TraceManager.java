@@ -111,7 +111,7 @@ public class TraceManager {
 	 * If a file has "OK" in its name, those traces are added as "good" ones,
 	 * otherwise they are marked as "bad".
 	 * @param tree An APTA structure
-	 * @see automata.APTA
+	 * @see dfa_identification.automata.APTA
 	 */
 	public void addTracesToAPTA(APTA<String> tree) {
 		List<List<String>> traces = getTraces();
@@ -134,7 +134,7 @@ public class TraceManager {
 	 * as "good" ones, otherwise they are marked as "bad".
 	 * @param dir The directory
 	 * @return The complete APTA
-	 * @see automata.APTA
+	 * @see dfa_identification.automata.APTA
 	 */
 	public static APTA<String> parseTracesFiles(File dir) {
 

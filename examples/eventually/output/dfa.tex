@@ -1,0 +1,47 @@
+% Minimal LaTeX file for apta specification: 
+%   use Tikz graph syntax between the two parts. 
+% >> part1 
+\documentclass[varwidth=40em]{standalone} 
+\usepackage[T1]{fontenc} 
+\usepackage[utf8]{inputenc} 
+\usepackage{tikz} 
+\usetikzlibrary{graphs,arrows,quotes,positioning} 
+\standaloneconfig{margin=2em} 
+\begin{document} 
+\centering 
+\begin{tikzpicture}[ 
+			>=stealth', 
+			accept/.style={double}, 
+			reject/.style={fill=gray}, 
+			backward/.style={bend right}, 
+			self loop/.style={to path={ 
+			.. controls +(70:1) and +(110:1) .. (\tikztotarget) \tikztonodes}} 
+	] 
+	\graph [ 
+			grow right sep=2.0cm, 
+			branch down sep=0.6cm, 
+			nodes={draw,circle}, 
+			edge quotes={font={\scriptsize}, inner sep=0.3ex, auto=right, pos=0.35} 
+			]{ 
+% >> end of part1 
+
+		1 -> {,
+		0 [accept,>"1"] -> {}},
+		1 -> [clear >, "0", self loop] 1,
+		0 -> [clear >, "2", self loop] 0
+% >> part2 
+	}; 
+\end{tikzpicture} 
+% >> end of part2 
+
+\vspace{2em}
+\textbf{Transitions}
+\begin{flushleft}
+\begin{description}
+	\item [0] A
+	\item [1] B
+	\item [2] A | B
+\end{description}
+\end{flushleft}
+
+\end{document}

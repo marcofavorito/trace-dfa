@@ -30,12 +30,12 @@ public class Solver {
 	 * problem is unsatisfiable.
 	 * @throws RuntimeException To describe any IO or logic error.
 	 */
-	public static List<EncodingVariable> extractSolution(Formula f) {
+	public static List<EncodingVariable> extractSolution(Formula f, String dir) {
 
 		try {
 			// Translate formula in Dimacs format
 			DimacsSaver saver = new DimacsSaver(f);
-			boolean ret = saver.saveToDimacsFile(new File("output/dimacsFormula.cnf"));
+			boolean ret = saver.saveToDimacsFile(new File(dir, "dimacsFormula.cnf"));
 
 			// Initialize solution and mapping between dimacs format and our Variable format
 			List<EncodingVariable> solution = null;
@@ -47,7 +47,7 @@ public class Solver {
 			Reader reader = new DimacsReader(solver);
 			// PrintWriter out = new PrintWriter(System.out,true);
 			// CNF filename is given on the command line 
-			IProblem problem = reader.parseInstance("output/dimacsFormula.cnf");
+			IProblem problem = reader.parseInstance(new File(dir, "dimacsFormula.cnf").getAbsolutePath());
 			if (problem.isSatisfiable()) {
 				// reader.decode(problem.model(),out);
 				solution = new ArrayList<>(problem.model().length);

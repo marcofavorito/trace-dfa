@@ -1,4 +1,3 @@
-
 # Trace-DFA
 
 Finds the minimum Deterministic Finite-State Automaton (*DFA*) that is consistent with the given sequences to accept and to reject.
@@ -35,7 +34,7 @@ Ant always passes the train and test directories to the program (either the defa
 
 when the program is provided as a single Jar.
 
-## Output DFA
+## Output
 
 The program will create a directory "output" with tree Latex files:
 

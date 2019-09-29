@@ -14,7 +14,7 @@ public class Main {
 	public static void main(String args[]) {
 
 		// Check
-		if (args.length != 2) {
+		if (args.length != 3) {
 			throw new IllegalArgumentException(
 					"Need two directories: train .xes files and test .xes files");
 		}
@@ -22,16 +22,17 @@ public class Main {
 		// Arguments
 		File trainTracesDir = new File(args[0]);
 		File testTracesDir = new File(args[1]);
+		String outputDir = args[2];
 
 		// Learning
-		DFA<String> dfa = learnDFA(trainTracesDir);
+		DFA<String> dfa = learnDFA(trainTracesDir, outputDir);
 
 		// Draw the DFA in Latex
 		dfa.useLegend(true);
-		LatexSaver.saveLatexFile(dfa, new File("output/dfa.tex"), 2);
+		LatexSaver.saveLatexFile(dfa, new File(outputDir, "dfa.tex"), 2);
 
 		// Save in .dot file
-		dfa.saveDotFile(new File("output/dfa.dot"));
+		dfa.saveDotFile(new File(outputDir, "dfa.dot"));
 
 		// Testing
 		float result = testDFA(dfa, testTracesDir);
@@ -42,9 +43,10 @@ public class Main {
 	/**
 	 * Launch the algorithm on traces and return the DFA.
 	 * @param trainTracesDir Directory of .xes files to use for learning.
+	 * @param outputDir the output directory
 	 * @return The DFA extracted.
 	 */
-	public static DFA<String> learnDFA(File trainTracesDir) {
+	public static DFA<String> learnDFA(File trainTracesDir, String outputDir) {
 
 		// Check
 		if (!trainTracesDir.isDirectory()) {
@@ -55,13 +57,13 @@ public class Main {
 		APTA<String> apta = TraceManager.parseTracesFiles(trainTracesDir);
 
 		// Draw the APTA in Latex
-		LatexSaver.saveLatexFile(apta, new File("output/apta.tex"), 1);
+		LatexSaver.saveLatexFile(apta, new File(outputDir, "apta.tex"), 1);
 
 		// Build constraints graph
 		ConstraintsGraph cg = new ConstraintsGraph(apta);
 
 		// Draw the constraints graph in Latex
-		LatexSaver.saveLatexFile(cg, new File("output/constraints.tex"), 1);
+		LatexSaver.saveLatexFile(cg, new File(outputDir, "constraints.tex"), 1);
 
 		// Build graph
 		DFA<String> dfa = null;
@@ -84,7 +86,7 @@ public class Main {
 			Formula encoding = pe.getEncoding();
 
 			// Extract solution with SAT
-			List<EncodingVariable> solution = Solver.extractSolution(encoding);
+			List<EncodingVariable> solution = Solver.extractSolution(encoding, outputDir);
 
 			// Solution found
 			if (solution != null) {

@@ -1,0 +1,14 @@
+digraph "Automaton" {
+	init [shape=none, label=""];
+	name [shape=note, label="Automaton"];
+	rankdir=LR;
+
+	q0 [shape=doublecircle];
+	q1 [shape=circle];
+
+	q0 -> q0 [label="A"];
+	q0 -> q1 [label="B"];
+	q1 -> q1 [label="A"];
+	q1 -> q1 [label="B"];
+	init -> q0;
+}
