@@ -20,26 +20,28 @@ Install [Gradle](https://gradle.org/) to build and run the app.
 
 The input of the program is composed of two sets of sequences: one for learning the DFA and one for testing. All sequences must be in XES format. By default, the program will use the directory "traces/train" for learning and "traces/test" for testing. However one may specify arbitrary paths when running the program, using options:
 
-    gradle run --args="any_train_dir any_test_dir"
+    gradle run --args="train_dir test_dir output_dir"
 
 Each sequence in the log is a trace in XES format composed of events. Just the name of the events are used to identify transitions.  Add "OK" in the filename of XES files containing sequences to be accepted by the DFA. Sequences to reject need no modification.
 
 ## Run
 
-Run with `gradle run`.
+Run with `gradle run --args="train_dir test_dir output_dir"`.
 
-Ant always passes the train and test directories to the program (either the default values or the ones specified with options). If the program is executed directly, we need to explicitly pass the two directories. For example:
+Or, using the JAR:
 
-    java -jar TraceDFA.jar traces/train/ traces/test/
+    java -jar trace-dfa.jar traces/train/ traces/test/ traces/output
+    
+You can easily produce the JAR by doing `gradle jar`. It will be located in `build/libs/`.
 
-when the program is provided as a single Jar.
+Please check the [examples](./examples) folder to get some working examples.
 
 ## Output
 
 The program will create a directory "output" with tree Latex files:
 
-* *dfa.tex* is the main output of the program. This is the extracted Finite State Automaton which is consistent with the given traces.
-* *apta.tex* is the APTA the algorithm uses internally to represent the input traces (to learn). For a big number of traces you won't be able to compile this, due to space limitation of the Tex page.
-* *constraints.tex* is the graph of constraints the algorithm internally uses to represent the constraints in the coloring problem. This also could exceed Tex limitations.
+* `dfa.tex` is the main output of the program. This is the extracted Finite State Automaton which is consistent with the given traces.
+* `apta.tex` is the APTA the algorithm uses internally to represent the input traces (to learn). For a big number of traces you won't be able to compile this, due to space limitation of the Tex page.
+* `constraints.tex` is the graph of constraints the algorithm internally uses to represent the constraints in the coloring problem. This also could exceed Tex limitations.
 
 The DFA will be also saved in a .dot text file in the same directory. Tools such as GraphViz can read dot files.
