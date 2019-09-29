@@ -1,13 +1,14 @@
 
 package dfa_identification.util;
 
-import java.io.*;
-import java.util.*;
-
-import org.deckfour.xes.model.*;
-import org.deckfour.xes.in.*;
-
 import dfa_identification.automata.APTA;
+import org.deckfour.xes.in.*;
+import org.deckfour.xes.model.*;
+
+import java.io.File;
+import java.io.FileFilter;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**

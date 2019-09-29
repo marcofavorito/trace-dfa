@@ -4,10 +4,10 @@ package dfa_identification.identification;
 import java.util.*;
 import java.io.File;
 
-import automata.*;
-import cnf.*;
-import identification.ConstraintsGraph.CNode;
-import util.*;
+import dfa_identification.automata.*;
+import dfa_identification.cnf.*;
+import dfa_identification.identification.ConstraintsGraph.CNode;
+import dfa_identification.util.*;
 
 /**
  * Problem encoding: represent the coloring problem (DFA identification) in

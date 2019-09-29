@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import java.io.File;
 
 import dfa_identification.automata.*;
-import dfa_identification.util.*
+import dfa_identification.util.*;
 
 
 /**
@@ -18,7 +18,7 @@ import dfa_identification.util.*
  * represents the same constraints. This class also provides useful measures
  * of the APTA.
  * NOTE: assuming an APTA of String.
- * @see automata.APTA
+ * @see dfa_identification.automata.APTA
  */
 public class ConstraintsGraph  implements Iterable<ConstraintsGraph.CNode>, LatexPrintableGraph {
 

@@ -8,26 +8,26 @@ The program reads .xes files and uses these logs as input sequences.
 This project implements: Marijn J. H. Heule and Sicco Verwer. 2010. Exact DFA identification using SAT solvers.
 
 
-## Dependencies
+## Preliminaries
 
-* Install ant
-* Download OpenXes
-* Download Guava
-* Download Sat4j solver
+Download the needed JARs in `libs/`:
 
-Put the downloaded libraries (usually as jars) in a directory named "lib" in the top level directory of the project (the one containing "build.xml").
+    ./scripts/download-jars.sh
+
+
+Install [Gradle](https://gradle.org/) to build and run the app.
 
 ## Input sequences
 
 The input of the program is composed of two sets of sequences: one for learning the DFA and one for testing. All sequences must be in XES format. By default, the program will use the directory "traces/train" for learning and "traces/test" for testing. However one may specify arbitrary paths when running the program, using options:
 
-    ant -Dtrain=any_train_dir -Dtest=any_test_dir
+    gradle run --args="any_train_dir any_test_dir"
 
 Each sequence in the log is a trace in XES format composed of events. Just the name of the events are used to identify transitions.  Add "OK" in the filename of XES files containing sequences to be accepted by the DFA. Sequences to reject need no modification.
 
 ## Run
 
-Run with `ant`. To genereate the documentation, run `ant doc`.
+Run with `gradle run`.
 
 Ant always passes the train and test directories to the program (either the default values or the ones specified with options). If the program is executed directly, we need to explicitly pass the two directories. For example:
 

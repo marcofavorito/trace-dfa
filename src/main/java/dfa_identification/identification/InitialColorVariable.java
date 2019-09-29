@@ -1,7 +1,7 @@
 
 package dfa_identification.identification;
 
-import automata.DFABuilder;
+import dfa_identification.automata.DFABuilder;
 
 
 /**

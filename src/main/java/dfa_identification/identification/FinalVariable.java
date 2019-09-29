@@ -1,8 +1,8 @@
 
 package dfa_identification.identification;
 
-import cnf.Variable;
-import automata.DFABuilder;
+import dfa_identification.cnf.Variable;
+import dfa_identification.automata.DFABuilder;
 
 
 /**

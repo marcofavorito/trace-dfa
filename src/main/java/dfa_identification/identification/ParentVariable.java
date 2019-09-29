@@ -1,8 +1,8 @@
 
 package dfa_identification.identification;
 
-import cnf.Variable;
-import automata.DFABuilder;
+import dfa_identification.cnf.Variable;
+import dfa_identification.automata.DFABuilder;
 
 
 /**
@@ -10,8 +10,7 @@ import automata.DFABuilder;
  * It is true if, for any vertex with color i, the child reached by label a
  * has color j. Variable y with three subscripts (a,i,j).
  */
-public class ParentVariable
-		extends EncodingVariable {
+public class ParentVariable extends EncodingVariable {
 
 
 	// >>> Fields
