@@ -1,11 +1,16 @@
 #!/usr/bin/env python3
 
-
+from functools import reduce
 from opyenxes.factory.XFactory import XFactory
 from opyenxes.id.XIDFactory import XIDFactory
 from opyenxes.data_out.XesXmlSerializer import XesXmlSerializer
 import sys
 import os
+from pathlib import Path
+import logging
+
+logging.basicConfig(level=logging.INFO)
+
 
 if __name__ == "__main__":
     filepath = sys.argv[1]
@@ -13,20 +18,33 @@ if __name__ == "__main__":
 
     traindir = os.path.join(outdir, "train")
     testdir = os.path.join(outdir, "test")
+    Path(testdir).mkdir(parents=True, exist_ok=True)
+    Path(traindir).mkdir(parents=True, exist_ok=True)
 
     fp = open(filepath)
 
     lines = [l for l in fp.readlines()]
     acceptances = []
     traces = []
-    for l in lines:
-        split = l.split("\t")
-        acceptances.append(split[0].strip())
-        traces.append(split[1].strip().split(";") if len(split) > 1 else [])
+    for idx, l in enumerate(lines):
+        split = l.strip().split("\t")
+        acceptance = split[0].strip()
+        acceptances.append(acceptance)
+        
+        trace = split[1].strip().split(";") if len(split) > 1 else []
+        if trace != ['']:
+            traces.append(trace)
+
+        logging.info("trace {}, acc {}: {}".format(idx, acceptance, trace))
+
+    logging.info("num traces: {}".format(len(traces)))
+    logging.info("num acceptances: {}".format(len(acceptances)))
+    logging.info("alphabet: {}".format(reduce(lambda x, y: x.union(y), map(set, traces))))
 
     positive_log = XFactory.create_log()
     negative_log = XFactory.create_log()
 
+    assert len(acceptances) == len(traces)
     for acc, t in zip(acceptances, traces):
         trace = XFactory.create_trace()
         for e in t:
