@@ -59,7 +59,7 @@ if __name__ == "__main__":
             negative_log.append(trace)
 
     path_positives = os.path.join(outdir, "T_OK.xes")
-    path_negatives = os.path.join(outdir, "T_OK.xes")
+    path_negatives = os.path.join(outdir, "T.xes")
     with open(path_positives, mode="w") as fout:
         XesXmlSerializer().serialize(positive_log, fout)
     with open(path_negatives, mode="w") as fout:
