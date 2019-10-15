@@ -6,6 +6,7 @@ from opyenxes.id.XIDFactory import XIDFactory
 from opyenxes.data_out.XesXmlSerializer import XesXmlSerializer
 import sys
 import os
+import shutil
 from pathlib import Path
 import logging
 
@@ -57,7 +58,15 @@ if __name__ == "__main__":
         else:
             negative_log.append(trace)
 
-    with open(os.path.join(outdir, "T_OK.xes"), mode="w") as fout:
+    path_positives = os.path.join(outdir, "T_OK.xes")
+    path_negatives = os.path.join(outdir, "T_OK.xes")
+    with open(path_positives, mode="w") as fout:
         XesXmlSerializer().serialize(positive_log, fout)
-    with open(os.path.join(outdir, "T.xes"), mode="w") as fout:
+    with open(path_negatives, mode="w") as fout:
         XesXmlSerializer().serialize(negative_log, fout)
+
+    shutil.copy(path_positives, Path(traindir)) 
+    shutil.copy(path_negatives, Path(traindir)) 
+    
+    shutil.copy(path_positives, Path(testdir)) 
+    shutil.copy(path_negatives, Path(testdir)) 
